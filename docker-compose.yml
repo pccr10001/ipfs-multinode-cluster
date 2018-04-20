@@ -11,7 +11,7 @@ services:
       - 51001:4001
       - 52001:5001
       - 53001:8080
-    user: ':'
+    user: '1000:1000'
     command: -c /opt/ipfs daemon
   node_2:
     image: ipfs
@@ -24,7 +24,7 @@ services:
       - 51002:4001
       - 52002:5001
       - 53002:8080
-    user: ':'
+    user: '1000:1000'
     command: -c /opt/ipfs daemon
   node_3:
     image: ipfs
@@ -37,7 +37,7 @@ services:
       - 51003:4001
       - 52003:5001
       - 53003:8080
-    user: ':'
+    user: '1000:1000'
     command: -c /opt/ipfs daemon
   node_4:
     image: ipfs
@@ -50,7 +50,7 @@ services:
       - 51004:4001
       - 52004:5001
       - 53004:8080
-    user: ':'
+    user: '1000:1000'
     command: -c /opt/ipfs daemon
 networks:
   ipfs_net:

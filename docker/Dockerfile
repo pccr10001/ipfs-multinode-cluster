@@ -7,4 +7,7 @@ RUN apt update && \
     mkdir /opt/ipfs && \
     cp /tmp/go-ipfs/ipfs /usr/local/bin/ 
 VOLUME ["/opt/ipfs"]
+EXPOSE 5001
+EXPOSE 4001
+EXPOSE 8080
 ENTRYPOINT ["/usr/local/bin/ipfs"]

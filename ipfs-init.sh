@@ -10,6 +10,7 @@ image=ipfs
 nnodes=${#ips[@]}
 
 pwd=`pwd`
+user_perm="$(id -u):$(id -g)"
 
 ./cleanup.sh 
 
@@ -32,7 +33,7 @@ do
     ipfs_dir=ipfs_$n
 
     # Generate the node's hash
-    enode=`docker run -v $pwd/$ipfs_dir:/opt/ipfs $image -c /opt/ipfs init`
+    enode=`docker run -u $user_perm -v $pwd/$ipfs_dir:/opt/ipfs $image -c /opt/ipfs init`
     while read -r line; do
         [[ "$line" =~ $node_hash_regex ]] && hash="${BASH_REMATCH[1]}"
     done <<< "$enode" 
@@ -49,11 +50,11 @@ do
 
     ipfs_dir=ipfs_$n
     # Remove default bootstrap nodes
-    docker run -v $pwd/$ipfs_dir:/opt/ipfs $image -c /opt/ipfs bootstrap rm all > /dev/null
+    docker run -u $user_perm -v $pwd/$ipfs_dir:/opt/ipfs $image -c /opt/ipfs bootstrap rm all > /dev/null
 
     # Add bootstrap nodes
     while read -r line; do
-         docker run -v $pwd/$ipfs_dir:/opt/ipfs $image -c /opt/ipfs bootstrap add $line > /dev/null
+         docker run -u $user_perm -v $pwd/$ipfs_dir:/opt/ipfs $image -c /opt/ipfs bootstrap add $line > /dev/null
     done < bootstrap_nodes
     echo "[3] + Node $n configured"
     let n++
@@ -84,7 +85,7 @@ do
       - $((n+51000)):4001
       - $((n+52000)):5001
       - $((n+53000)):8080
-    user: '$uid:$gid'
+    user: '$user_perm'
     command: -c /opt/ipfs daemon
 EOF
 
