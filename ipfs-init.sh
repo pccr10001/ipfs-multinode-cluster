@@ -55,6 +55,9 @@ do
     # Add bootstrap nodes
     while read -r line; do
          docker run -u $user_perm -v $pwd/$ipfs_dir:/opt/ipfs $image -c /opt/ipfs bootstrap add $line > /dev/null
+         docker run -u $user_perm -v $pwd/$ipfs_dir:/opt/ipfs $image -c /opt/ipfs config Addresses.API '/ip4/0.0.0.0/tcp/5001' > /dev/null
+         docker run -u $user_perm -v $pwd/$ipfs_dir:/opt/ipfs $image -c /opt/ipfs config Addresses.Gateway '/ip4/0.0.0.0/tcp/8080' > /dev/null
+         
     done < bootstrap_nodes
     echo "[3] + Node $n configured"
     let n++
