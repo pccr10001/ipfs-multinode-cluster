@@ -1,0 +1,61 @@
+version: '3'
+services:
+  node_1:
+    image: ipfs
+    volumes:
+      - './ipfs_1:/opt/ipfs'
+    networks:
+      ipfs_net:
+        ipv4_address: '172.14.0.2'
+    ports:
+      - 51001:4001
+      - 52001:5001
+      - 53001:8080
+    user: ':'
+    command: -c /opt/ipfs daemon
+  node_2:
+    image: ipfs
+    volumes:
+      - './ipfs_2:/opt/ipfs'
+    networks:
+      ipfs_net:
+        ipv4_address: '172.14.0.3'
+    ports:
+      - 51002:4001
+      - 52002:5001
+      - 53002:8080
+    user: ':'
+    command: -c /opt/ipfs daemon
+  node_3:
+    image: ipfs
+    volumes:
+      - './ipfs_3:/opt/ipfs'
+    networks:
+      ipfs_net:
+        ipv4_address: '172.14.0.4'
+    ports:
+      - 51003:4001
+      - 52003:5001
+      - 53003:8080
+    user: ':'
+    command: -c /opt/ipfs daemon
+  node_4:
+    image: ipfs
+    volumes:
+      - './ipfs_4:/opt/ipfs'
+    networks:
+      ipfs_net:
+        ipv4_address: '172.14.0.5'
+    ports:
+      - 51004:4001
+      - 52004:5001
+      - 53004:8080
+    user: ':'
+    command: -c /opt/ipfs daemon
+networks:
+  ipfs_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.14.0.0/16
