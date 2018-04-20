@@ -1,2 +1,3 @@
 ipfs_*
 bootstrap_nodes
+docker-compose.yml
